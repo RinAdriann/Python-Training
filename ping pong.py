@@ -1,13 +1,13 @@
 import turtle
 
-# Set up the screen
+#Screen
 screen = turtle.Screen()
 screen.title("Ping Pong Game")
 screen.bgcolor("black")
 screen.setup(width=800, height=600)
 screen.tracer(0)
 
-# Paddle A
+#Paddle A
 paddle_a = turtle.Turtle()
 paddle_a.speed(0)
 paddle_a.shape("square")
@@ -16,7 +16,7 @@ paddle_a.shapesize(stretch_wid=8, stretch_len=1)
 paddle_a.penup()
 paddle_a.goto(-350, 0)
 
-# Paddle B
+#Paddle B
 paddle_b = turtle.Turtle()
 paddle_b.speed(0)
 paddle_b.shape("square")
@@ -25,7 +25,7 @@ paddle_b.shapesize(stretch_wid=8, stretch_len=1)
 paddle_b.penup()
 paddle_b.goto(350, 0)
 
-# Ball
+#Ball
 ball = turtle.Turtle()
 ball.speed(0)
 ball.shape("circle")
@@ -35,11 +35,11 @@ ball.goto(0, 0)
 ball.dx = 0.4
 ball.dy = -0.4
 
-# Score
+#Score
 score_a = 0
 score_b = 0
 
-# Score display
+#Score display
 score_display = turtle.Turtle()
 score_display.speed(0)
 score_display.color("white")
@@ -52,7 +52,7 @@ def update_score():
     score_display.clear()
     score_display.write("Player kanan: {}  Player Kiri: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
     
-# Functions to move paddles
+#Move paddles
 def paddle_a_up():
     y = paddle_a.ycor()
     if y < 250:
@@ -77,7 +77,7 @@ def paddle_b_down():
         y -= 100
     paddle_b.sety(y)
 
-# Keyboard bindings
+#Keybindings
 screen.listen()
 screen.onkeypress(paddle_a_up, "w")
 screen.onkeypress(paddle_a_down, "s")
@@ -85,19 +85,19 @@ screen.onkeypress(paddle_b_up, "Up")
 screen.onkeypress(paddle_b_down, "Down")
 
 
-# Main game loop
+# Main Game
 while True:
     screen.update()
 
-    # Move the ball
+    # Ball moving
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
 
-    # Check for collisions with the walls
+    # Collitions with walls
     if ball.ycor() > 290 or ball.ycor() < -290:
         ball.dy *= -1
 
-    # Check for collisions with the paddles
+    # Collitions with paddles
     if (ball.dx > 0) and (350 > ball.xcor() > 340) and (paddle_b.ycor() + 50 > ball.ycor() > paddle_b.ycor() - 50):
         ball.color("cyan")
         ball.setx(340)
@@ -110,7 +110,7 @@ while True:
         ball.dx *= -1
         update_score()
 
-    # Check for ball out of bounds
+    # Ball out of area
     if ball.xcor() > 370:
         ball.goto(0, 0)
         ball.dx *= -1
